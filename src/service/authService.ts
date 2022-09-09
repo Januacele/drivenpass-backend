@@ -4,7 +4,6 @@ import * as authRepository from "../repositories/authRepository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "../setup";
-import { object } from "joi";
 
 
 async function createUser(user:IUserData) {
