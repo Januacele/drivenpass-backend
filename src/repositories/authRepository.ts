@@ -14,3 +14,11 @@ export async function findUserByEmail(email: string){
         }
     });
 }
+
+export async function findById(id: number){
+    return prisma.user.findUnique({
+        where:{
+            id
+        }
+    });
+}
