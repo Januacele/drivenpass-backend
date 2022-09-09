@@ -3,9 +3,8 @@ import { conflictError, notFoundError, unauthorizedError } from "../utils/errorU
 import * as authRepository from "../repositories/authRepository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-
-dotenv.config({ path: ".env" });
+import "../setup";
+import { object } from "joi";
 
 
 async function createUser(user:IUserData) {
@@ -19,21 +18,21 @@ async function createUser(user:IUserData) {
 
 
 async function checkLogin(login:IUserData) {
-    const verifyEmail =  await authRepository.findUserByEmail(login.email);
-    if(!verifyEmail) throw unauthorizedError("Invalid data credentials");
+    const user =  await authRepository.findUserByEmail(login.email);
+    if(!user) throw unauthorizedError("Invalid data credentials");
 
-    const verifyPassword = bcrypt.compareSync(login.password, login.password);
+    const verifyPassword = bcrypt.compareSync(login.password, user.password);
     if(!verifyPassword) throw unauthorizedError("Invalid data credentials");
 
-    return verifyEmail;
+    return user;
 }
 
 
 async function login(login: IUserData){
     const user = await checkLogin(login);
-    // const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId: user.id }, (process.env.JWT_SECRET)!);
 
-    return user;
+    return token;
 }
 
 async function findUserById(id: number){

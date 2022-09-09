@@ -6,4 +6,7 @@ export const userSchema = Joi.object({
     password: Joi.string().min(10).required()
 });
 
-export default userSchema;
+export const loginSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().required()
+});
