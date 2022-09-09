@@ -6,3 +6,11 @@ export async function insertUser(user: IUserData){
         data: user,
     });
 }
+
+export async function findUserByEmail(email: string){
+    return prisma.user.findUnique({
+        where: {
+            email,
+        }
+    });
+}
