@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import * as safeNoteRepository from "../repositories/safeNoteRepository";
 import { ISafeNoteData } from "../types/safeNoteTypes";
-import { conflictError } from "../utils/errorUtils";
+import { conflictError, notFoundError } from "../utils/errorUtils";
 
 
 
@@ -12,10 +12,22 @@ async function createSafeNote(user: User, safeNote: ISafeNoteData){
     await safeNoteRepository.insertSafeNote(user.id, safeNote);
 }
 
+async function getAllSafeNotes(userId: number){
+    const safeNotes = await safeNoteRepository.getAllSafeNotes(userId);
+    return safeNotes;
+}
 
+async function getOneSafeNote(userId: number, safeNoteId: number){
+    const safeNote = await safeNoteRepository.getOneSafeNote(userId, safeNoteId);
+    if(!safeNote) throw notFoundError("Safe note does not exist");
+
+    return safeNote;
+}
 
 const safeNoteService = {
-    createSafeNote
+    createSafeNote,
+    getAllSafeNotes,
+    getOneSafeNote
 }
 
 export default safeNoteService;
