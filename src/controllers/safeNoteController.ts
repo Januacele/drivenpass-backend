@@ -28,3 +28,14 @@ export async function getOneSafeNote(req: Request, res: Response){
 
     res.send(safeNote);
 }
+
+export async function deleteSafeNote(req: Request, res: Response){
+    const {user} = res.locals;
+    const safeNoteId = parseInt(req.params.id);
+    if(isNaN(safeNoteId)){
+        res.status(422).send("Id must be a number");
+    }
+
+    await safeNoteService.deleteSafeNote(user, safeNoteId);
+    res.sendStatus(200);
+}

@@ -29,3 +29,9 @@ export async function getOneSafeNote(userId: number, safeNoteId: number){
         }
     });
 }
+
+export async function deleteSafeNotes(id: number){
+    return prisma.safeNote.delete({
+        where: {id}
+    });
+}

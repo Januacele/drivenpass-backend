@@ -24,10 +24,17 @@ async function getOneSafeNote(userId: number, safeNoteId: number){
     return safeNote;
 }
 
+async function deleteSafeNote(user: User, safeNoteId: number){
+    await getOneSafeNote(user.id, safeNoteId);
+    await safeNoteRepository.deleteSafeNotes(safeNoteId);
+
+}
+
 const safeNoteService = {
     createSafeNote,
     getAllSafeNotes,
-    getOneSafeNote
+    getOneSafeNote,
+    deleteSafeNote
 }
 
 export default safeNoteService;
