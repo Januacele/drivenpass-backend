@@ -6,8 +6,8 @@ import { conflictError, notFoundError } from "../utils/errorUtils";
 
 
 async function createSafeNote(user: User, safeNote: ISafeNoteData){
-    const existingCredential = await safeNoteRepository.getSafeNoteByTitle(user.id, safeNote.title);
-    if(existingCredential) throw conflictError("Title already exists");
+    const existSafeNote = await safeNoteRepository.getSafeNoteByTitle(user.id, safeNote.title);
+    if(existSafeNote) throw conflictError("Title already exists");
 
     await safeNoteRepository.insertSafeNote(user.id, safeNote);
 }
