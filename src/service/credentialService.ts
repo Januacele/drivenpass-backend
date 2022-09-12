@@ -6,6 +6,7 @@ import * as credentialRepository from "../repositories/credentialRepository";
 
 
 import "../setup";
+import { decrypt } from "../utils/criptrUtils";
 
 
 async function createCredential(user: User, credential: ICredentialData){
@@ -25,7 +26,10 @@ async function createCredential(user: User, credential: ICredentialData){
 
 async function getAllCredential(userId: number){
     const credential = await credentialRepository.getAllCredential(userId);
-    return credential;
+    return credential.map(credential => {
+        const { password } = credential;
+        return { ...credential, password: decrypt(password)}
+    });
 }
 
 
@@ -33,7 +37,10 @@ async function getOneCredential(userId: number, credentialId: number){
     const credential = await credentialRepository.getOneCredential(userId, credentialId);
     if(!credential) throw notFoundError("Safe note does not exist");
 
-    return credential;
+    return {
+        ...credential,
+        password: decrypt(credential.password)
+    }
 }
 
 async function deleteCredential(user: User, credentialId: number){
