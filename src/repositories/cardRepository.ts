@@ -2,7 +2,7 @@ import { prisma } from "../config/database";
 import { ICardData } from "../types/cardTypes";
 
 
-export async function insertCredential(userId: number, card: ICardData){
+export async function insertCard(userId: number, card: ICardData){
     return prisma.card.create({
         data: {...card, userId}
     });

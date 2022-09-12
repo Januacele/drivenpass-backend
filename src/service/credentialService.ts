@@ -1,4 +1,4 @@
-import { User, Credential } from "@prisma/client";
+import { User } from "@prisma/client";
 import Cryptr from "cryptr";
 import { ICredentialData } from "../types/credentialTypes";
 import { conflictError, notFoundError } from "../utils/errorUtils";
