@@ -13,3 +13,12 @@ export async function getAllWifi(userId: number){
         where : {userId}
     });
 }
+
+export async function getOneWifi(userId: number, wifiId: number){
+    return prisma.wifi.findFirst({
+        where : {
+            userId: userId,
+            id: wifiId
+        }
+    });
+}
