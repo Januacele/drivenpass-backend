@@ -1,7 +1,7 @@
 import joi from "joi";
 import { ICardData } from "../types/cardTypes";
 
-export const credentialSchema = joi.object<ICardData>({
+export const cardSchema = joi.object<ICardData>({
     title: joi.string().max(50).required(),
     number: joi.string().required(),
     cardHolderName: joi.string().required(),
