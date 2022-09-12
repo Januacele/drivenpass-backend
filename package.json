@@ -1,16 +1,22 @@
 {
   "name": "projeto19-drivenpass",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc src/index.ts",
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon src/index.ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Januacele/drivenpass-backend.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "bugs": {
+    "url": "https://github.com/Januacele/drivenpass-backend/issues"
+  },
+  "homepage": "https://github.com/Januacele/drivenpass-backend#readme",
   "dependencies": {
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
@@ -25,15 +31,17 @@
     "pg": "^8.8.0"
   },
   "devDependencies": {
-    "@prisma/client": "^4.3.1",
+    "@types/axios": "^0.14.0",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/cryptr": "^4.0.1",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
+    "@types/joi": "^17.2.3",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.7.16",
     "@types/pg": "^8.6.5",
-    "prisma": "^4.3.1",
+    "@types/string-strip-html": "^5.0.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.3"
   }
