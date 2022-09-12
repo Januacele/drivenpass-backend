@@ -40,10 +40,16 @@ async function getAllCards(userId: number) {
       }
   }
 
+  async function deleteCard(user: User, cardId: number) {
+    await getOneCard(user.id, cardId);
+    await cardRepository.deleteCard(cardId);
+  }
+
 const cardService = {
     createCard,
     getAllCards,
-    getOneCard
+    getOneCard,
+    deleteCard
 }
 
 export default cardService;

@@ -28,3 +28,15 @@ export async function getOneCard(req: Request, res: Response){
 
     res.send(cards);
 }
+
+export async function deleteCard(req: Request, res: Response){
+    const {user} = res.locals;
+    const cardId = parseInt(req.params.id);
+    if(isNaN(cardId)){
+        res.status(422).send("Id must be a number");
+    }
+
+   await cardService.deleteCard(user, cardId);
+
+    res.sendStatus(200);
+}
