@@ -25,10 +25,16 @@ async function getOneWifi(userId: number, wifiId: number){
     return wifi;
 }
 
+async function deleteWifi(user: User, wifiId: number){
+    await getOneWifi(user.id, wifiId);
+    await wifiRepository.deleteWifi(wifiId);
+}
+
 const wifiService = {
     createWifi,
     getAllWifi,
-    getOneWifi
+    getOneWifi,
+    deleteWifi
 }
 
 export default wifiService;

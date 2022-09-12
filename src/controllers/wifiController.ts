@@ -28,3 +28,15 @@ export async function getAllWifiById(req: Request, res: Response){
 
     res.send(wifi);
 }
+
+export async function deleteCredential(req: Request, res: Response){
+    const {user} = res.locals;
+    const wifiId = parseInt(req.params.id);
+    if(isNaN(wifiId)){
+        res.status(422).send("Id must be a number");
+    }
+
+    await wifiService.deleteWifi(user, wifiId);
+
+    res.send(200);
+}

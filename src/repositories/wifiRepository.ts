@@ -22,3 +22,9 @@ export async function getOneWifi(userId: number, wifiId: number){
         }
     });
 }
+
+export async function deleteWifi(id: number){
+    return prisma.wifi.delete({
+        where : { id }
+    })
+}
