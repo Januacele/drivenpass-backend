@@ -9,11 +9,13 @@ import "../setup";
 
 
 async function createCredential(user: User, credential: ICredentialData){
+    console.log(process.env.CRYPT_SECRET);
     const existingCredential = await credentialRepository.getCredentialTitle(user.id, credential.title);
     if(existingCredential) throw conflictError("Title already exists");
 
     const credentialPassword = credential.password;
-    const cryptr = new Cryptr(process.env.CRYPTR_SECRET!);
+    const cryptr = new Cryptr(process.env.CRYPT_SECRET!);
+   
     const encryptedPassword = cryptr.encrypt(credentialPassword);
     const credentialInfos = {...credential, password: encryptedPassword}
 
