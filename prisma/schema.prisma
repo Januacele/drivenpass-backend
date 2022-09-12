@@ -17,6 +17,7 @@ model User {
 
   SafeNote SafeNote[]
   Credential Credential[]
+  Wifi Wifi[]
   @@map("users")
 }
 
@@ -42,4 +43,15 @@ model Credential {
   userId Int
   @@unique([title, userId])
   @@map("credentials")
+}
+
+model Wifi {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  title String
+  wifi String
+  password String 
+  userId Int
+
+  @@map("wifi")
 }
