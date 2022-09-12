@@ -11,7 +11,7 @@ app.use(json());
 app.use(router);
 app.use(handleErrorsMiddleware);
 
-const port = Number(process.env.PORT) || 5000;
+const port = Number(process.env.PORT) || 5001;
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
