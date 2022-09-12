@@ -1,9 +1,10 @@
 import { User } from "@prisma/client";
+import Cryptr from "cryptr";
 import { ICredentialData } from "../types/credentialTypes";
 import { conflictError } from "../utils/errorUtils";
 import * as credentialRepository from "../repositories/credentialRepository";
 
-import Cryptr from "cryptr";
+
 import "../setup";
 
 
@@ -12,17 +13,14 @@ async function createCredential(user: User, credential: ICredentialData){
     if(existingCredential) throw conflictError("Title already exists");
 
     const credentialPassword = credential.password;
-    const credentialInfos = {...credential, password: encrypt(credentialPassword)}
-    
+    const cryptr = new Cryptr(process.env.CRYPTR_SECRET!);
+    const encryptedPassword = cryptr.encrypt(credentialPassword);
+    const credentialInfos = {...credential, password: encryptedPassword}
+
     await credentialRepository.insertCredential(user.id, credentialInfos)
 }
 
 
-const cryptr = new Cryptr(process.env.CRYPTR_SECRET!);
-
-function encrypt(value: string) {
-  return cryptr.encrypt(value);
-}
 
 
 
