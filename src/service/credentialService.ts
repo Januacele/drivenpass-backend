@@ -34,12 +34,17 @@ async function getOneCredential(userId: number, credentialId: number){
     return credential;
 }
 
+async function deleteCredential(user: User, credentialId: number){
+    await getOneCredential(user.id, credentialId);
+    await credentialRepository.deleteCredential(credentialId);
+}
 
 
 const credentialService = {
     createCredential,
     getAllCredential,
-    getOneCredential
+    getOneCredential,
+    deleteCredential
 }
 
 export default credentialService;

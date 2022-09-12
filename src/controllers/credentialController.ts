@@ -28,3 +28,15 @@ export async function getOneCredential(req: Request, res: Response){
 
     res.send(credentials);
 }
+
+export async function deleteCredential(req: Request, res: Response){
+    const {user} = res.locals;
+    const credentialId = parseInt(req.params.id);
+    if(isNaN(credentialId)){
+        res.status(422).send("Id must be a number");
+    }
+
+    await credentialService.deleteCredential(user, credentialId);
+
+    res.send(200);
+}
