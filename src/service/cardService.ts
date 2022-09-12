@@ -2,7 +2,7 @@ import { ICardData } from "../types/cardTypes";
 import { User } from "@prisma/client";
 import * as cardRepository from "../repositories/cardRepository";
 import { conflictError } from "../utils/errorUtils"; 
-import { encrypt } from "../utils/criptrUtils";
+import { encrypt, decrypt } from "../utils/criptrUtils";
 
 async function createCard(user: User, card: ICardData) {
    
@@ -18,9 +18,21 @@ async function createCard(user: User, card: ICardData) {
     await cardRepository.insertCard(user.id, cardInfos);
 }
 
+async function getAllCards(userId: number) {
+    const cards = await cardRepository.getAllCards(userId);
+    return cards.map(card => {
+      return {
+        ...card, 
+        password: decrypt(card.password),
+        securityCode: decrypt(card.securityCode)
+      }
+    })
+  }
+
 
 const cardService = {
     createCard,
+    getAllCards
 }
 
 export default cardService;
