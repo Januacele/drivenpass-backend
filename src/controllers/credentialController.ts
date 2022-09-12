@@ -9,3 +9,10 @@ export async function createCredential(req: Request, res: Response){
     await credentialService.createCredential(user, credential);
     res.sendStatus(201);
 }
+
+export async function getAllCredential(req: Request, res: Response){
+    const {user} = res.locals;
+    const credential = await credentialService.getAllCredential(user.id);
+
+    res.send(credential);
+}

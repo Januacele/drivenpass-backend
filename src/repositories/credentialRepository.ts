@@ -17,3 +17,9 @@ export async function getCredentialTitle(userId: number, title: string){
         }
     });
 }
+
+export async function getAllCredential(userId: number){
+    return prisma.credential.findMany({
+        where : { userId }
+    })
+}

@@ -21,11 +21,17 @@ async function createCredential(user: User, credential: ICredentialData){
 }
 
 
+async function getAllCredential(userId: number){
+    const safeNotes = await credentialRepository.getAllCredential(userId);
+    return safeNotes;
+}
+
 
 
 
 const credentialService = {
-    createCredential
+    createCredential,
+    getAllCredential
 }
 
 export default credentialService;
