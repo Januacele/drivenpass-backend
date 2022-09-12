@@ -1,7 +1,7 @@
 import { ICardData } from "../types/cardTypes";
 import { User } from "@prisma/client";
 import * as cardRepository from "../repositories/cardRepository";
-import { conflictError } from "../utils/errorUtils"; 
+import { conflictError, notFoundError } from "../utils/errorUtils"; 
 import { encrypt, decrypt } from "../utils/criptrUtils";
 
 async function createCard(user: User, card: ICardData) {
@@ -29,10 +29,21 @@ async function getAllCards(userId: number) {
     })
   }
 
+  async function getOneCard(userId: number, cardId: number) {
+    const card = await cardRepository.getOneCard(userId, cardId);
+    if(!card) throw notFoundError("Safe note does not exist");
+
+    return {
+        ...card,
+        password: decrypt(card.password),
+        securityCode: decrypt(card.securityCode)
+      }
+  }
 
 const cardService = {
     createCard,
-    getAllCards
+    getAllCards,
+    getOneCard
 }
 
 export default cardService;

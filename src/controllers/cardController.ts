@@ -12,7 +12,19 @@ export async function createCard(req: Request, res: Response){
 
 export async function getAllCards(req: Request, res: Response){
     const {user} = res.locals;
-    const credential = await cardService.getAllCards(user.id);
+    const card = await cardService.getAllCards(user.id);
 
-    res.send(credential);
+    res.send(card);
+}
+
+export async function getOneCard(req: Request, res: Response){
+    const {user} = res.locals;
+    const cardId = parseInt(req.params.id);
+    if(isNaN(cardId)){
+        res.status(422).send("Id must be a number");
+    }
+
+    const cards = await cardService.getOneCard(user.id, cardId);
+
+    res.send(cards);
 }
