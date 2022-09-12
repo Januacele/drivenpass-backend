@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import Cryptr from "cryptr";
 import { ICredentialData } from "../types/credentialTypes";
-import { conflictError } from "../utils/errorUtils";
+import { conflictError, notFoundError } from "../utils/errorUtils";
 import * as credentialRepository from "../repositories/credentialRepository";
 
 
@@ -22,16 +22,24 @@ async function createCredential(user: User, credential: ICredentialData){
 
 
 async function getAllCredential(userId: number){
-    const safeNotes = await credentialRepository.getAllCredential(userId);
-    return safeNotes;
+    const credential = await credentialRepository.getAllCredential(userId);
+    return credential;
 }
 
+
+async function getOneCredential(userId: number, credentialId: number){
+    const credential = await credentialRepository.getOneCredential(userId, credentialId);
+    if(!credential) throw notFoundError("Safe note does not exist");
+
+    return credential;
+}
 
 
 
 const credentialService = {
     createCredential,
-    getAllCredential
+    getAllCredential,
+    getOneCredential
 }
 
 export default credentialService;

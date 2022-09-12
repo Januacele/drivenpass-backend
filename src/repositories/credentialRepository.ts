@@ -23,3 +23,13 @@ export async function getAllCredential(userId: number){
         where : { userId }
     })
 }
+
+
+export async function getOneCredential(userId: number, credentialId: number){
+    return prisma.credential.findFirst({
+        where:{
+            userId: userId,
+            id: credentialId
+        }
+    });
+}

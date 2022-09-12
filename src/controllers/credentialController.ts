@@ -16,3 +16,15 @@ export async function getAllCredential(req: Request, res: Response){
 
     res.send(credential);
 }
+
+export async function getOneCredential(req: Request, res: Response){
+    const {user} = res.locals;
+    const credentialId = parseInt(req.params.id);
+    if(isNaN(credentialId)){
+        res.status(422).send("Id must be a number");
+    }
+
+    const credentials = await credentialService.getOneCredential(user.id, credentialId);
+
+    res.send(credentials);
+}
